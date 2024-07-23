@@ -9,4 +9,6 @@ sealed class FavoritesScreenState {
 
     data object NoFavoritesAdded : FavoritesScreenState()
     data object LoadingError : FavoritesScreenState()
+
+    data object Loading : FavoritesScreenState()
 }

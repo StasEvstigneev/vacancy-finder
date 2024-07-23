@@ -15,6 +15,7 @@ class FavoritesViewModel(private val interactor: FavoritesInteractor) : ViewMode
     fun getScreenState(): LiveData<FavoritesScreenState> = screenState
 
     init {
+        screenState.postValue(FavoritesScreenState.Loading)
         getVacancies()
     }
 
@@ -23,5 +24,4 @@ class FavoritesViewModel(private val interactor: FavoritesInteractor) : ViewMode
             screenState.postValue(interactor.loadData())
         }
     }
-
 }

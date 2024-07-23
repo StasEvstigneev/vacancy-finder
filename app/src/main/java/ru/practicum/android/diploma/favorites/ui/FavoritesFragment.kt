@@ -55,12 +55,14 @@ class FavoritesFragment : Fragment(), SearchClickListener {
             is FavoritesScreenState.Default -> showDefaultState(state.vacancyList)
             is FavoritesScreenState.LoadingError -> showLoadingErrorState()
             is FavoritesScreenState.NoFavoritesAdded -> showNoFavoritesAddedState()
+            is FavoritesScreenState.Loading -> showLoadingState()
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun showDefaultState(list: ArrayList<Vacancy>) {
         binding.apply {
+            progressBar.isVisible = false
             placeholder.isVisible = false
             recyclerView.isVisible = true
             adapter.vacanciesList.clear()
@@ -71,6 +73,7 @@ class FavoritesFragment : Fragment(), SearchClickListener {
 
     private fun showNoFavoritesAddedState() {
         binding.apply {
+            progressBar.isVisible = false
             placeholder.isVisible = true
             placeholder.setText(R.string.empty_list)
             placeholder.setCompoundDrawablesWithIntrinsicBounds(
@@ -85,6 +88,7 @@ class FavoritesFragment : Fragment(), SearchClickListener {
 
     private fun showLoadingErrorState() {
         binding.apply {
+            progressBar.isVisible = false
             placeholder.isVisible = true
             placeholder.setText(R.string.empty_search_results)
             placeholder.setCompoundDrawablesWithIntrinsicBounds(
@@ -93,6 +97,15 @@ class FavoritesFragment : Fragment(), SearchClickListener {
                 0,
                 0
             )
+            recyclerView.isVisible = false
+            progressBar.isVisible = false
+        }
+    }
+
+    private fun showLoadingState() {
+        binding.apply{
+            progressBar.isVisible = true
+            placeholder.isVisible = false
             recyclerView.isVisible = false
         }
     }
